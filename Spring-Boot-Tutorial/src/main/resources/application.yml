@@ -1,0 +1,75 @@
+## .yml file la file gan voi ngon ngu con nguoi nhat va dong thoi no cung
+##giam di cac tu lap lai trong properties file nen duoc nhieu nguoi ua chuong hon
+## .yml file cung duoc cac cong nghe noi tieng nhu kebenetor,docker ho tro thay vi properties
+##file
+## SpringBoot tu dong doc hieu .yml file ma khong can config qua phuc tap :))
+server:
+  port: 8082
+
+spring:
+  profiles:
+    active: product
+#Doan code config tren nay duoc tinh la cua chung nhe
+---
+#moi 1 profile la 1 config khac nhau tren cac database khac nhau,no giup chung ta
+#chay application tren nhieu database,nhieu moi truong duoc
+#ten cac profile duoc dat theo cu phap profile:<ten_profile>
+#Dau --- nay giup ngan cach cac document(noi config profiles)
+---
+#Day la profile thu nhat ten la dev(ten nay tu dat nhe),su dung mysql voi database ten la dcbapp
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Thang123
+    url: jdbc:mysql://localhost:3306/dcbapp
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+page2: This is page 2
+message: Welcome to site of Tran Minh Thang!!!
+---
+#Day la profile thu 2 ten la qa(ten tu dat thoi) csu dung h2database voi database ten la dcbapp
+spring:
+  profiles: qa
+  h2:
+    console:
+      enabled: true
+  datasource:
+    username: sa
+    url: jdbc:h2:mem:dcbapp
+    driveClassName: org.h2.Driver
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+page2: This is page 2
+message: Welcome to site of Tran Minh Thang!!!
+---
+#Day la profile thu 3 ten la product su dung mysql voi ten database la dcbapp-prod
+spring:
+  profiles: product
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Thang123
+    url: jdbc:mysql://localhost:3306/dcbapp-prod
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+page2: This is page 2
+message: Welcome to site of Tran Minh Thang!!!
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"# include la cac endpoint duoc phep truy cap,* tuc la tat ca deu duoc truy cap
+        exclude: "env" #exclude la cac endpoint khong duoc phep truy cap
+#-muon tao file jar de chay tren moi truong product thi
+#go lenh sau len terminal:mvn clean install:no se xoa thu muc target,tao 1 thu muc target moi va cai file jar lai vao do
+#-muon xoa file target khong thi chay:mvn clean spring-boot:repackage
+#-muon chay file jar thi cd den thu muc target va go lenh:
+# java -jar <ten file jar> --spring.profiles.active=<ten profile can active>
+#-neu khong go doan --spring... thi springboot se chon profile mac dinh de chay
