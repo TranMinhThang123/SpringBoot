@@ -73,12 +73,13 @@
 				<version>2.4.5</version>
 				<configuration>
 					<excludes>
-						<groupId>org.projectlombok</groupId>
-						<artifactId>lombok</artifactId>
-					</excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
 					<!--them cai l nay vao thi build succes ne dkm ao that day
 					ca buoi chieu tim mai k ra dkm-->
-					<excludes>
+
 						<exclude>
 							<groupId>com.foo</groupId>
 							<artifactId>bar</artifactId>
@@ -89,5 +90,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

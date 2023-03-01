@@ -4,7 +4,7 @@
 ##file
 ## SpringBoot tu dong doc hieu .yml file ma khong can config qua phuc tap :))
 server:
-  port: 8082
+  port: 8080
 
 spring:
   profiles:
